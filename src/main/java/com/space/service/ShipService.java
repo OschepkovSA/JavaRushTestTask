@@ -34,7 +34,7 @@ public class ShipService {
             throw new RequestException("The planet name is too long or absent");
         }
 
-        if (shipRequired.getSpeed() != null && (shipRequired.getSpeed() < 0.01D || shipRequired.getSpeed() > 9999.99D)) {
+        if (shipRequired.getSpeed() != null && (shipRequired.getSpeed() < 0.01D || shipRequired.getSpeed() > 0.99D)) {
             throw new RequestException("The ship speed is out of range");
         }
 
@@ -68,7 +68,7 @@ public class ShipService {
         date.setTime(shipRequired.getProdDate());
         int year = date.get(Calendar.YEAR);
         BigDecimal rating = new BigDecimal((80 * shipRequired.getSpeed() * (shipRequired.getUsed() ? 0.5 : 1)) / (3019 - year + 1));
-        rating = rating.setScale(2, RoundingMode.HALF_UP);
+        rating = rating.setScale(2, RoundingMode.HALF_EVEN);
         return rating.doubleValue();
     }
 
