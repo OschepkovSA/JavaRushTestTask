@@ -57,6 +57,9 @@ public class ShipService {
         }
         try {
             Long iD = Long.parseLong(id);
+            if (iD < 0) {
+                throw new RequestException("ID should be greater than 0");
+            }
             return iD;
         } catch (NumberFormatException e) {
             throw new RequestException("ID is not a number", e);
